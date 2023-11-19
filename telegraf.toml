@@ -1,0 +1,14 @@
+# OpenTelemetry Input Plugin: https://github.com/influxdata/telegraf/blob/release-1.21/plugins/inputs/opentelemetry/README.md
+[[inputs.opentelemetry]]
+
+# InfluxDB v1.x Output Plugin: https://github.com/influxdata/telegraf/tree/master/plugins/outputs/influxdb
+[[outputs.influxdb]]
+  # We use the hostname 'influxdb' here because that is the name of the Docker container/service that we set up in the
+  # Docker Compose file. Thanks to Docker's internal DNS, this hostname will resolve to the IP address of the InfluxDB
+  # container.
+  urls = ["http://influxdb:8086"]
+  database = "playground"
+  # We need to skip the database creation because Telegraf starts up too fast. When it starts up, InfluxDB is not ready
+  # yet and Telegraf will fail to create the database. We don't need this behavior anyway because we're pre-creating the
+  # database using the `INFLUXDB_DB: playground` environment variable in the Docker Compose file.
+  skip_database_creation = true

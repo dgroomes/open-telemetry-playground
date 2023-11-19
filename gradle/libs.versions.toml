@@ -1,0 +1,7 @@
+[versions]
+# SLF4J releases: http://www.slf4j.org/news.html
+slf4j = "2.0.9"
+
+[libraries]
+slf4j-api = { module = "org.slf4j:slf4j-api", version.ref = "slf4j" }
+slf4j-simple = { module = "org.slf4j:slf4j-simple", version.ref = "slf4j" }
