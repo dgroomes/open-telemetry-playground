@@ -1,0 +1,30 @@
+[versions]
+# SLF4J releases: http://www.slf4j.org/news.html
+slf4j = "2.0.9"
+
+# OpenTelemetry releases: https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases
+# Note: Many of OpenTelemetry's Java instrumentation libraries are released as alpha versions. Read about more about the
+# versioning strategy here: https://github.com/open-telemetry/opentelemetry-java-instrumentation/blob/main/VERSIONING.md#opentelemetry-java-instrumentation-versioning
+opentelemetry = "1.32.0"
+opentelemetry-alpha = "1.32.0-alpha"
+
+[libraries]
+slf4j-api = { module = "org.slf4j:slf4j-api", version.ref = "slf4j" }
+slf4j-simple = { module = "org.slf4j:slf4j-simple", version.ref = "slf4j" }
+slf4j-jul = { module = "org.slf4j:jul-to-slf4j", version.ref = "slf4j" }
+
+opentelemetry-api = { module = "io.opentelemetry:opentelemetry-api", version.ref = "opentelemetry" }
+opentelemetry-sdk = { module = "io.opentelemetry:opentelemetry-sdk", version.ref = "opentelemetry" }
+opentelemetry-sdk-metrics = { module = "io.opentelemetry:opentelemetry-sdk-metrics", version.ref = "opentelemetry" }
+opentelemetry-sdk-extension-autoconfigure = { module = "io.opentelemetry:opentelemetry-sdk-extension-autoconfigure", version.ref = "opentelemetry" }
+opentelemetry-sdk-extension-autoconfigure-spi = { module = "io.opentelemetry:opentelemetry-sdk-extension-autoconfigure-spi", version.ref = "opentelemetry" }
+# Note: there is also an "opentelemetry-runtime-telemetry-java17" library but it just depends on the "java8" library and
+# adds some more features. Don't think of the "java8" library as outdated.
+opentelemetry-runtime-telemetry-java8 = { module = "io.opentelemetry.instrumentation:opentelemetry-runtime-telemetry-java8", version.ref = "opentelemetry-alpha" }
+
+# The logging exporter is a temp workaround until I get to actual OTLP exporter.
+opentelemetry-exporter-logging = { module = "io.opentelemetry:opentelemetry-exporter-logging", version.ref = "opentelemetry" }
+
+# Not sure if it's redundant to declare these.
+opentelemetry-exporter-otlp = { module = "io.opentelemetry:opentelemetry-exporter-otlp", version.ref = "opentelemetry" }
+opentelemetry-semconv = { module = "io.opentelemetry:opentelemetry-semconv", version.ref = "opentelemetry-alpha" }

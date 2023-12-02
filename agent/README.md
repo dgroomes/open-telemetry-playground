@@ -13,7 +13,7 @@ The tech stack in this subproject:
 * A metrics sink/collector (Telegraf)
   * Telegraf acts as a sink for the metrics pushed by the OpenTelemetry agent. Telegraf re-formats the metrics into an
     acceptable format for the metrics database and then writes the metrics into the database. Telegraf is acting as
-    "collector" in the OpenTelemetry terminology (I think).
+    "collector" in the OpenTelemetry terminology.
 * A metrics database (InfluxDB)
   * InfluxDB is an open source time series database that's usually used for metrics. Prometheus is an even more popular
     alternative. There are many vendor options, too, like Datadog.
@@ -163,8 +163,6 @@ General clean-ups, TODOs and things I wish to implement for this project:
 
 * [OpenTelemetry docs: *Automatic Instrumentation*](https://opentelemetry.io/docs/instrumentation/java/automatic/)
   * This is what I'm using in this project.
-* [OpenTelemetry docs: *Manual Instrumentation* for Java](https://opentelemetry.io/docs/instrumentation/java/manual/)
-  > Manual instrumentation is the act of adding observability code to an app yourself.
 * [OpenTelemetry: *Semantic Conventions*](https://github.com/open-telemetry/semantic-conventions/blob/main/docs/README.md)
   > The benefit to using Semantic Conventions is in following a common naming scheme that can be standardized across a codebase, libraries, and platforms.
   * This is, to me, the strongest selling point in OpenTelemetry. Yet another specification can turn into "yet another

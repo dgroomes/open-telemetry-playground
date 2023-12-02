@@ -32,11 +32,18 @@ An example program-under-observation instrumented with the OpenTelemetry Java ag
 See the README in [agent/](agent/).
 
 
+### `manual-instrumentation/`
+
+An example program-under-observation instrumented with OpenTelemetry using *manual instrumentation*.
+
+See the README in [manual-instrumentation/](manual-instrumentation/).
+
+
 ## Wish List
 
 General clean-ups, TODOs and things I wish to implement for this project:
 
 * [x] DONE Extract the original project into an `agent` subproject.
-* [ ] Create a `manual-instrumentation` subproject. This will contrast with the `agent` subproject. Particularly, I want
+* [ ] IN PROGRESS Create a `manual-instrumentation` subproject. This will contrast with the `agent` subproject. Particularly, I want
   a more explicit set of transitive dependencies. I want to use OpenTelemetry's [`JdkHttpSender`](https://github.com/open-telemetry/opentelemetry-java/blob/f1deb8ec78cd446bc6310b1528a5d71e1d42989e/exporters/sender/jdk/src/main/java/io/opentelemetry/exporter/sender/jdk/internal/JdkHttpSender.java)
   instead of the OkHttp one because I want to bring in fewer dependencies like OkHttp (which itself brings in Kotlin).

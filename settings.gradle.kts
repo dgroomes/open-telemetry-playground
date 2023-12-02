@@ -23,3 +23,4 @@ rootProject.name = "open-telemetry-playground"
 // clones this repo and opens it in Intellij, all the subprojects are automatically identified by Intellij and indexed.
 // You get code completion and project navigation out-of-the-box. Pretty slick!
 includeBuild("agent")
+includeBuild("manual-instrumentation")
