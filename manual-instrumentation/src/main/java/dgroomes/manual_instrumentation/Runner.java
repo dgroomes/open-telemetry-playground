@@ -21,6 +21,8 @@ import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.LogManager;
 
 /**
  * Please see the README for more information.
@@ -48,9 +50,10 @@ public class Runner {
 
     public static void main(String[] args) {
         log.info("Let's simulate some fictional data processing...");
-        ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
-
+        installLoggingBridge();
         registerMetrics();
+
+        ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
 
         // Schedule the work to run periodically. Let's estimate the rate of memory usage. Instances of DataPacket are
         // 16 bytes because on a 64-bit JVM process, an object has a 12-byte header and is padded to a multiple of 8
@@ -69,15 +72,18 @@ public class Runner {
         executorService.scheduleAtFixedRate(Runner::generateAndDiscardDataPackets, 0, PERIOD_MS, TimeUnit.MILLISECONDS);
     }
 
-    private static void registerMetrics() {
-
-        // The OpenTelemetry instrumentation logs with JUL (java.util.logging). We want it to log through our preferred
-        // logging system which is SLF4J (including the logging implementation 'slf4j-simple'). We can bridge JUL to
-        // SLF4J using the 'jul-to-slf4j' library and the line below.
-        //
-        // This doesn't quite work. I'm not seeing OpenTelemetry logs. Keep researching. See https://stackoverflow.com/a/9117188
+    /**
+     * OpenTelemetry logs with JUL (java.util.logging) but we use SLF4J. This is the standard boilerplate to bridge JUL
+     * logging events to SLF4J. For more information about this topic, read the JavaDoc in {@link SLF4JBridgeHandler}
+     * and see <a href="https://stackoverflow.com/a/9117188">this StackOverflow answer</a>.
+     */
+    private static void installLoggingBridge() {
+        SLF4JBridgeHandler.removeHandlersForRootLogger();
         SLF4JBridgeHandler.install();
+        LogManager.getLogManager().getLogger("").setLevel(Level.FINEST);
+    }
 
+    private static void registerMetrics() {
         Resource resource = Resource.getDefault().toBuilder()
                 .put(ResourceAttributes.SERVICE_NAME, "manual-instrumentation-server")
                 .put(ResourceAttributes.SERVICE_VERSION, "0.1.0")

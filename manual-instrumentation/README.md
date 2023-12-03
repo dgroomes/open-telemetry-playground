@@ -72,7 +72,7 @@ General clean-ups, TODOs and things I wish to implement for this project:
   because I need to walk before I can run.
 * [ ] Configure the metrics export to every 10 seconds instead of every 60 seconds.
 * [ ] Do I need to set the otel "service"?
-* [ ] Get JUL-to-SLF4J working. It's nice to be able to debug the OpenTelemetry instrumentation and it's also nice to use
+* [x] DONE (done but there's only one lonesome log?) Get JUL-to-SLF4J working. It's nice to be able to debug the OpenTelemetry instrumentation and it's also nice to use
   SLF4J because we like it. 
 
 
