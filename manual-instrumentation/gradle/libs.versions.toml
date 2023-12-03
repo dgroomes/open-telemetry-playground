@@ -21,9 +21,7 @@ opentelemetry-sdk-extension-autoconfigure-spi = { module = "io.opentelemetry:ope
 # Note: there is also an "opentelemetry-runtime-telemetry-java17" library but it just depends on the "java8" library and
 # adds some more features. Don't think of the "java8" library as outdated.
 opentelemetry-runtime-telemetry-java8 = { module = "io.opentelemetry.instrumentation:opentelemetry-runtime-telemetry-java8", version.ref = "opentelemetry-alpha" }
-
-# The logging exporter is a temp workaround until I get to actual OTLP exporter.
-opentelemetry-exporter-logging = { module = "io.opentelemetry:opentelemetry-exporter-logging", version.ref = "opentelemetry" }
+opentelemetry-exporter-sender-jdk = { module = "io.opentelemetry:opentelemetry-exporter-sender-jdk", version.ref = "opentelemetry-alpha" }
 
 # Not sure if it's redundant to declare these.
 opentelemetry-exporter-otlp = { module = "io.opentelemetry:opentelemetry-exporter-otlp", version.ref = "opentelemetry" }

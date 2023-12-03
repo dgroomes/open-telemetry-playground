@@ -1,0 +1,27 @@
+# For more information about OpenTelemetry Collector configuration, read the docs: https://opentelemetry.io/docs/collector/configuration/
+
+receivers:
+  otlp:
+    protocols:
+      # I haven't fully explored the config. I'm not sure if this "emtpy leaf node" is really necessary to enable the
+      # HTTP receiver but I think it is.
+      http:
+
+exporters:
+  otlp:
+    endpoint: telegraf:4317
+    tls:
+      # By default, the OpenTelemetry Collector uses TLS but we don't want that for an offline development workflow.
+      insecure: true
+
+processors:
+  # Again, not sure if this needed.
+  batch:
+
+service:
+  extensions: []
+  pipelines:
+    metrics:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [otlp]

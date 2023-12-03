@@ -2,18 +2,37 @@ version: '3'
 
 services:
 
+  open-telemetry-collector:
+    # OpenTelemetry Collector Docker images: https://hub.docker.com/r/otel/opentelemetry-collector-contrib/tags
+    image: otel/opentelemetry-collector-contrib:0.90.1
+    ports:
+      # Expose the conventional OpenTelemetry port for the HTTP-based endpoint which is 4318. See https://opentelemetry.io/docs/specs/otel/protocol/exporter/
+      # The program-under-observation sends OTLP metrics via HTTP.
+      - "4318:4318"
+    volumes:
+      - type: bind
+        source: ./open-telemetry-collector.yaml
+        target: /etc/otelcol-contrib/config.yaml
+        read_only: true
+    # Declare a depends-on relationship with the Telegraf service so that the OpenTelemetry Collector starts after Telegraf.
+    # The OpenTelemetry Collector eagerly tries to connect to Telegraf and I found that it would log the following error:
+    #
+    #     warn    zapgrpc/zapgrpc.go:195  [core] [Channel #1 SubChannel #2] grpc: addrConn.createTransport failed to connect to {Addr: "telegraf:4317", ServerName: "telegraf:4317", }. Err: connection error: desc = "transport: Error while dialing: dial tcp 172.19.0.4:4317: connect: connection refused" {"grpc_log": true}
+    depends_on: [telegraf]
+
   telegraf:
     # Telegraf Docker images: https://hub.docker.com/_/telegraf
     image: telegraf:1.28
     ports:
-      # Because we are running Telegraf with the OpenTelegraf plugin, we need to expose the conventional OpenTelemetry
-      # port which is 4317.
+      # Expose the conventional OpenTelemetry port for the gRPC-based endpoint which is 4317. The OpenTelemetry Collector
+      # sends OTLP metrics via gRPC to Telegraf.
       - "4317:4317"
     volumes:
       - type: bind
         source: ./telegraf.toml
         target: /etc/telegraf/telegraf.conf
         read_only: true
+    depends_on: [influxdb]
 
   influxdb:
     # InfluxDB Docker images: https://hub.docker.com/_/influxdb

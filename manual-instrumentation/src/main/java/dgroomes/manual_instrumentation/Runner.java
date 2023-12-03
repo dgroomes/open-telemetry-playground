@@ -5,7 +5,7 @@ import io.opentelemetry.api.baggage.propagation.W3CBaggagePropagator;
 import io.opentelemetry.api.trace.propagation.W3CTraceContextPropagator;
 import io.opentelemetry.context.propagation.ContextPropagators;
 import io.opentelemetry.context.propagation.TextMapPropagator;
-import io.opentelemetry.exporter.logging.LoggingMetricExporter;
+import io.opentelemetry.exporter.otlp.http.metrics.OtlpHttpMetricExporter;
 import io.opentelemetry.instrumentation.runtimemetrics.java8.*;
 import io.opentelemetry.sdk.OpenTelemetrySdk;
 import io.opentelemetry.sdk.metrics.SdkMeterProvider;
@@ -90,7 +90,7 @@ public class Runner {
                 .build();
 
         @SuppressWarnings("resource") SdkMeterProvider sdkMeterProvider = SdkMeterProvider.builder()
-                .registerMetricReader(PeriodicMetricReader.builder(LoggingMetricExporter.create()).build())
+                .registerMetricReader(PeriodicMetricReader.builder(OtlpHttpMetricExporter.getDefault()).build())
                 .setResource(resource)
                 .build();
 

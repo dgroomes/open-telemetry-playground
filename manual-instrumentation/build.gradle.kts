@@ -17,7 +17,12 @@ dependencies {
     implementation(libs.opentelemetry.sdk.extension.autoconfigure)
     implementation(libs.opentelemetry.sdk.extension.autoconfigure.spi)
     implementation(libs.opentelemetry.runtime.telemetry.java8)
-    implementation(libs.opentelemetry.exporter.logging)
+    implementation(libs.opentelemetry.exporter.otlp) {
+        // By default, the OTLP exporter uses an OkHttp-based sender. We want to use the JDK-based sender instead so we
+        // have to exclude the OkHttp-sender.
+        exclude(group = "io.opentelemetry", module = "opentelemetry-exporter-sender-okhttp")
+    }
+    implementation(libs.opentelemetry.exporter.sender.jdk)
 }
 
 application {
