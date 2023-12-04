@@ -38,7 +38,7 @@ import java.util.logging.LogManager;
  * The scheduled task facilitates the creation of a sawtooth pattern in memory usage
  * by periodically triggering the generation of objects, followed by their eligible disposal
  * for garbage collection.
- *
+ * <p>
  * The Java process is manually instrumented with the OpenTelemetry Java instrumentation library.
  */
 public class Runner {

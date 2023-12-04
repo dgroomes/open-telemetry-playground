@@ -151,9 +151,8 @@ General clean-ups, TODOs and things I wish to implement for this project:
    * DONE Darn, the Telegraf OTLP receiver doesn't support the HTTP endpoint for OTLP data, only the gRPC endpoint. I'm going
      to explore the OpenTelemetry Collector instead.
 * [ ] Configure the metrics export to every 10 seconds instead of every 60 seconds.
-* [ ] Do I need to set the otel "service"?
-* [ ] Remove the auto-conf dependencies
-* [ ] Do we need the semantic conventions dependency declaration? Isn't it already pulled in transitively? 
+* [x] DONE Remove the auto-conf dependencies
+* [x] DONE Do we need the semantic conventions dependency declaration? Isn't it already pulled in transitively? 
 * [x] DONE (done but there's only one lonesome log?) Get JUL-to-SLF4J working. It's nice to be able to debug the OpenTelemetry instrumentation and it's also nice to use
   SLF4J because we like it. 
 * [ ] Are we using the legacy metric conventions? We want the 1.0 semantic conventions and I think you actually need to
